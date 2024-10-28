@@ -1,8 +1,12 @@
-#include <iostream>
-using namespace std;
-#include "../include/Pedidos.hpp"
+#include "ControladorCliente.hpp"
+#include "ControladorPedidos.hpp"
+#include "Menu.hpp"
 
 int main() {
-    cout << "Sistema de pedidos ejecutandose..." << endl;
+    ControladorClientes controladorClientes;
+    ControladorPedidos controladorPedidos;
+
+    gestionarMenu(controladorClientes, controladorPedidos);
+
     return 0;
 }

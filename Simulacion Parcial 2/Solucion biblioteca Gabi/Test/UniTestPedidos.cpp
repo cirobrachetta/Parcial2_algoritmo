@@ -1,43 +1,49 @@
-#include "Pedidos.hpp"
+#include <iostream>
 #include "TestEvaluator.hpp"
+#include "Pedidos.hpp"
+#include "ControladorPedidos.hpp"
+#include "Cliente.hpp"
+#include "ControladorCliente.hpp"
 
 int main() {
-    // Crear una instancia de TestEvaluator
     TestEvaluator te;
+    te.title("Pruebas de ControladorPedidos");
 
-    // Título general de las pruebas
-    te.title("Pruebas de la clase Cliente");
+    // Instanciación de ControladorPedidos
+    ControladorPedidos controladorPedidos;
 
-    // Test para la clase Cliente
-    Cliente cliente("Juan Pérez", "123 Calle Falsa");
-    te.evaluate("Cliente getNombre", cliente.getNombre() == "Juan Pérez");
-    te.evaluate("Cliente getDireccion", cliente.getDireccion() == "123 Calle Falsa");
+    // Prueba de agregar pedido
+    Cliente cliente("Cliente de prueba", "Calle Falsa 123");
+    Articulo articulo("Articulo de prueba", 100);
+    controladorPedidos.crearPedido(0, cliente, articulo, 5); // Agrega un pedido con cliente y artículo
+    const auto& pedidos = controladorPedidos.obtenerPedidos();
+    te.evaluate("Agregar pedido", !pedidos.empty());
 
-    // Título para la clase Articulo
-    te.title("Pruebas de la clase Articulo");
+    // Prueba de buscar pedido existente
+    bool pedidoEncontrado = !pedidos.empty() && pedidos[0].getCliente().getNombre() == "Cliente de prueba";
+    te.evaluate("Buscar pedido existente", pedidoEncontrado);
 
-    // Test para la clase Articulo
-    Articulo articulo("Laptop", 1500);
-    te.evaluate("Articulo getNombre", articulo.getNombre() == "Laptop");
-    te.evaluate("Articulo getPrecio", articulo.getPrecio() == 1500);
+    // Prueba de eliminar pedido
+    te.evaluate("Eliminar pedido", controladorPedidos.eliminarPedido(0));
 
-    // Título para la clase Pedido
-    te.title("Pruebas de la clase Pedido");
+    te.title("Pruebas de ControladorClientes");
 
-    // Test para la clase Pedido
-    Pedido pedido(cliente, articulo, 3);
-    te.evaluate("Pedido getCliente", pedido.getCliente().getNombre() == "Juan Pérez");
-    te.evaluate("Pedido getArticulo", pedido.getArticulo().getNombre() == "Laptop");
-    te.evaluate("Pedido getCantidad", pedido.getCantidad() == 3);
+    // Instanciación de ControladorClientes
+    ControladorClientes controladorClientes;
 
-    // Test para Pedido por defecto
-    Pedido pedidoPorDefecto;
-    te.evaluate("Pedido por defecto - Cliente", pedidoPorDefecto.getCliente().getNombre() == "Nombre por defecto");
-    te.evaluate("Pedido por defecto - Articulo", pedidoPorDefecto.getArticulo().getNombre() == "Articulo por defecto");
-    te.evaluate("Pedido por defecto - Cantidad", pedidoPorDefecto.getCantidad() == 0);
+    // Prueba de agregar cliente
+    controladorClientes.agregarCliente("Cliente de prueba", "Calle Falsa 354");
+    Cliente* clienteEncontrado = controladorClientes.buscarCliente("Cliente de prueba");
+    te.evaluate("Agregar cliente", clienteEncontrado != nullptr);
 
-    // Mostrar el resumen de los tests
+    // Prueba de buscar cliente existente
+    te.evaluate("Buscar cliente existente", clienteEncontrado != nullptr && clienteEncontrado->getNombre() == "Cliente de prueba");
+
+    // Resumen final de pruebas
     te.summary();
 
+    cout << "Pruebas unitarias completadas. Presione cualquier tecla para continuar..." << endl;
+    cin.get();
+    
     return 0;
 }
