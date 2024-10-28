@@ -1,13 +1,14 @@
 #pragma once
 
 #include <memory>
-#include "ControladorCliente.hpp"
+#include "ControladorProveedor.hpp"
 #include "ControladorPedidos.hpp"
+#include "ControladorEmpleados.hpp"
 #include "Articulos.hpp"
 
 // Funciones del menú
 void mostrarMenu();
-void gestionarMenu(ControladorClientes& controladorClientes, ControladorPedidos& controladorPedidos);
+void gestionarMenu(ControladorProveedor& controladorProveedor, ControladorPedidos& controladorPedidos, ControladorEmpleados& controladorEmpleados);
 
-// Función para validar que el cliente exista
-shared_ptr<Cliente> obtenerClienteExistente(ControladorClientes& controladorClientes);
+// Función para validar que el Proveedor exista
+shared_ptr<Proveedor> obtenerProveedorExistente(ControladorProveedor& controladorProveedor);

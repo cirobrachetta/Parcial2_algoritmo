@@ -2,8 +2,9 @@
 #include "TestEvaluator.hpp"
 #include "Pedidos.hpp"
 #include "ControladorPedidos.hpp"
-#include "Cliente.hpp"
-#include "ControladorCliente.hpp"
+#include "Proveedor.hpp"
+#include "ControladorProveedor.hpp"
+#include "ControladorEmpleados.hpp"
 
 int main() {
     TestEvaluator te;
@@ -13,31 +14,45 @@ int main() {
     ControladorPedidos controladorPedidos;
 
     // Prueba de agregar pedido
-    Cliente cliente("Cliente de prueba", "Calle Falsa 123");
+    Proveedor proveedor(0, "Proveedor de prueba", "Calle Falsa 123");
     Articulo articulo("Articulo de prueba", 100);
-    controladorPedidos.crearPedido(0, cliente, articulo, 5); // Agrega un pedido con cliente y artículo
+    controladorPedidos.crearPedido(0, proveedor, articulo, 5); // Agrega un pedido con proveedor y artículo
     const auto& pedidos = controladorPedidos.obtenerPedidos();
     te.evaluate("Agregar pedido", !pedidos.empty());
 
     // Prueba de buscar pedido existente
-    bool pedidoEncontrado = !pedidos.empty() && pedidos[0].getCliente().getNombre() == "Cliente de prueba";
+    bool pedidoEncontrado = !pedidos.empty() && pedidos[0].getProveedor().getNombre() == "Proveedor de prueba";
     te.evaluate("Buscar pedido existente", pedidoEncontrado);
 
     // Prueba de eliminar pedido
     te.evaluate("Eliminar pedido", controladorPedidos.eliminarPedido(0));
 
-    te.title("Pruebas de ControladorClientes");
+    te.title("Pruebas de ControladorProveedors");
 
-    // Instanciación de ControladorClientes
-    ControladorClientes controladorClientes;
+    // Instanciación de ControladorProveedors
+    ControladorProveedor controladorProveedor;
 
-    // Prueba de agregar cliente
-    controladorClientes.agregarCliente("Cliente de prueba", "Calle Falsa 354");
-    Cliente* clienteEncontrado = controladorClientes.buscarCliente("Cliente de prueba");
-    te.evaluate("Agregar cliente", clienteEncontrado != nullptr);
+    // Prueba de agregar proveedor
+    controladorProveedor.agregarProveedor(1, "Proveedor de prueba", "Calle Falsa 354");
+    Proveedor* proveedorEncontrado = controladorProveedor.buscarProveedor(1);
+    te.evaluate("Agregar proveedor", proveedorEncontrado != nullptr);
 
-    // Prueba de buscar cliente existente
-    te.evaluate("Buscar cliente existente", clienteEncontrado != nullptr && clienteEncontrado->getNombre() == "Cliente de prueba");
+    // Prueba de buscar proveedor existente
+    te.evaluate("Buscar proveedor existente", proveedorEncontrado != nullptr && proveedorEncontrado->getNombre() == "Proveedor de prueba");
+
+    te.title("Pruebas de ControladorEmpleados");
+
+    // Instanciación de ControladorEmpleados
+    ControladorEmpleados controladorEmpleados;
+
+    // Prueba de agregar empleado
+    controladorEmpleados.cargarEmpleado(0, "Empleado de prueba", "plomero");
+    const auto& empleados = controladorEmpleados.obtenerEmpleados();
+    te.evaluate("Agregar empleado", !empleados.empty());
+
+    // Prueba de mostrar empleado existente
+    bool empleadoEncontrado = !empleados.empty() && empleados[0]->getNombre() == "Empleado de prueba";
+    te.evaluate("Mostrar empleado existente", empleadoEncontrado);
 
     // Resumen final de pruebas
     te.summary();

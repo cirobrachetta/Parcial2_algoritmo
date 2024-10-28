@@ -10,3 +10,5 @@ string Articulo::getNombre() const {
 int Articulo::getPrecio() const {
     return precio;
 }
+
+Articulo::~Articulo() {}

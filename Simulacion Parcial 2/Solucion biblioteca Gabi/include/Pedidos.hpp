@@ -1,18 +1,19 @@
 #pragma once
 
-#include "Cliente.hpp"
+#include "Proveedor.hpp"
 #include "Articulos.hpp"
 
 class Pedido {
 public:
-    Pedido(const int id, const Cliente& cliente, const Articulo& articulo, int cantidad);
-    const Cliente& getCliente() const;
+    Pedido(const int id, const Proveedor& proveedor, const Articulo& articulo, int cantidad);
+    const Proveedor& getProveedor() const;
     const Articulo& getArticulo() const;
     int getCantidad() const;
     void setCantidad(int cantidad);
     int getId() const;
+    ~Pedido();
 private:
-    Cliente cliente;
+    Proveedor proveedor;
     Articulo articulo;
     int cantidad, id;
 };

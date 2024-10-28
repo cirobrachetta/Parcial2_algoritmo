@@ -1,12 +1,14 @@
-#include "ControladorCliente.hpp"
+#include "ControladorProveedor.hpp"
 #include "ControladorPedidos.hpp"
+#include "ControladorEmpleados.hpp"
 #include "Menu.hpp"
 
 int main() {
-    ControladorClientes controladorClientes;
+    ControladorProveedor controladorProveedores;
     ControladorPedidos controladorPedidos;
+    ControladorEmpleados controladorEmpleados;
 
-    gestionarMenu(controladorClientes, controladorPedidos);
+    gestionarMenu(controladorProveedores, controladorPedidos, controladorEmpleados);
 
     return 0;
 }

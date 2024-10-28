@@ -1,10 +1,10 @@
 #include "Pedidos.hpp"
 
-Pedido::Pedido(const int id, const Cliente& cliente, const Articulo& articulo, int cantidad)
-    : id(id), cliente(cliente), articulo(articulo), cantidad(cantidad) {}
+Pedido::Pedido(const int id, const Proveedor& proveedor, const Articulo& articulo, int cantidad)
+    : id(id), proveedor(proveedor), articulo(articulo), cantidad(cantidad) {}
 
-const Cliente& Pedido::getCliente() const {
-    return cliente;
+const Proveedor& Pedido::getProveedor() const {
+    return proveedor;
 }
 
 const Articulo& Pedido::getArticulo() const {
@@ -22,3 +22,5 @@ void Pedido::setCantidad(int cantidad) {
 int Pedido::getId() const{
     return id;
 }
+
+Pedido::~Pedido() {}
