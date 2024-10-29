@@ -92,7 +92,8 @@ void gestionarMenu(ControladorProveedor& controladorProveedor, ControladorPedido
                 if (proveedor) {
                     id = 0;
                     cout << "Ingrese tipo de articulo/s: ";
-                    cin >> nombreArticulo;
+                    cin.ignore();
+                    getline(cin, nombreArticulo);
                     cout << "Ingrese precio del articulo/s: ";
                     cin >> precio;
 

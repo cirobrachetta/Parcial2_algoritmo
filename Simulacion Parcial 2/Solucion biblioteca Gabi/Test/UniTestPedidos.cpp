@@ -29,7 +29,7 @@ int main() {
 
     te.title("Pruebas de ControladorProveedors");
 
-    // Instanciación de ControladorProveedors
+    // Instanciación de ControladorProveedor
     ControladorProveedor controladorProveedor;
 
     // Prueba de agregar proveedor
@@ -39,6 +39,9 @@ int main() {
 
     // Prueba de buscar proveedor existente
     te.evaluate("Buscar proveedor existente", proveedorEncontrado != nullptr && proveedorEncontrado->getNombre() == "Proveedor de prueba");
+
+    //prueba de eliminar un proveedor
+    te.evaluate("eliminar Proveedor", controladorProveedor.eliminarProveedor(1));
 
     te.title("Pruebas de ControladorEmpleados");
 
